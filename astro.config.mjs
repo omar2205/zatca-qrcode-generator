@@ -12,7 +12,7 @@ export default defineConfig({
   adapter: netlify(),
   vite: {
     ssr: {
-      noExternal: true
+      noExternal: 'qrcode'
     }
   }
 })
