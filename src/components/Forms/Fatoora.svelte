@@ -4,6 +4,7 @@
   import Fatora, { iInvoice } from '../../models/Fatora'
 
   let qr_url = ''
+  let invoice_name = ''
   let isOpen = false
   let isToastOpened = false
   let toastMessage = ''
@@ -20,6 +21,11 @@
   }
 
 
+  const get_invoice_name = () => {
+    const now = new Date()
+    return `invoice_${now.toLocaleDateString('en-CA')}_${now.toTimeString().split(' ')[0]}`
+  }
+
   const generate = async () => {
     if (values.invoice_date && values.seller_name && values.tax_amount && values.total && values.vat_number) {
       const f = new Fatora({
@@ -30,6 +36,7 @@
         tax_amount: Number(values.tax_amount)
       })
 
+      invoice_name = get_invoice_name()
       qr_url = await f.qrcode()
       isOpen = true
     } else {
@@ -94,7 +101,7 @@
           <img src={qr_url} alt="qrcode" />
           <!-- TODO -->
           <div class="footer w-full max-w-md flex gap-4">
-            <Button>Download</Button>
+            <Link href={qr_url} download={invoice_name}>Download</Link>
             <Button clear>share</Button>
           </div>
       </div>
