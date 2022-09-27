@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title } from '../sotres/index'
+  import { title } from '../stores/index'
 </script>
 
 <title>{$title}</title>
