@@ -9,5 +9,10 @@ import netlify from '@astrojs/netlify/edge-functions'
 export default defineConfig({
   integrations: [tailwind(), svelte()],
   output: 'server',
-  adapter: netlify()
+  adapter: netlify(),
+  vite: {
+    ssr: {
+      noExternal: 'fs'
+    }
+  }
 })
