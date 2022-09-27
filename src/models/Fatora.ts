@@ -1,6 +1,6 @@
-import { toDataURL, QRCodeToDataURLOptions } from 'qrcode'
 import { toBase64, toTlv } from '../utils'
 import { Tag } from './Tag'
+import QRious from 'qrious'
 
 export interface iInvoice {
   seller_name: string
@@ -42,8 +42,13 @@ class Invoice {
   /**
    * @returns Fatoora QRCode in an image base64
    */
-  qrcode(opts?: QRCodeToDataURLOptions) {
-    return toDataURL(this.base64(), opts)
+  qrcode() {
+    const qr = new QRious({
+      value: this.base64(),
+      padding: 25,
+      size: 512
+    })
+    return qr.toDataURL()
   }
 }
 

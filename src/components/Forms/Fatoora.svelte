@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Block, Button, Link, List, ListInput, Toolbar, Page, Popup, Sheet, Toast } from "konsta/svelte"
+  import { Block, Button, Link, List, ListInput, Toolbar, Sheet, Toast } from 'konsta/svelte'
   import Fatora, { iInvoice } from '../../models/Fatora'
 
   let qr_url = ''
@@ -29,10 +29,14 @@
         total: Number(values.total),
         tax_amount: Number(values.tax_amount)
       })
-  
+
       qr_url = await f.qrcode()
       isOpen = true
     } else {
+      // auto close the toast
+      setTimeout(() => {
+        isToastOpened = false
+      }, 2000)
       isToastOpened = true
       toastMessage = 'Please fill all the fields'
     }
@@ -61,15 +65,15 @@
     <Button onClick={generate}>Generate</Button>
   </Block>
 
-  <Toast opened={isToastOpened}>
+  <Toast position="center" opened={isToastOpened}>
     <Button
     slot="button"
     clear
     inline
     onClick={() => (isToastOpened = false)}
     >
-    Close
-  </Button>
+      Close
+    </Button>
   <div class="shrink">{toastMessage}</div>
   </Toast>
 
@@ -86,9 +90,25 @@
     </div>
   </Toolbar>
 
-      <div class="flex justify-center items-start mt-4">
-        <img src={qr_url} alt="qrcode" />
+      <div class="flex flex-col justify-center items-center gap-4 mt-4">
+          <img src={qr_url} alt="qrcode" />
+          <!-- TODO -->
+          <div class="footer w-full max-w-md flex gap-4">
+            <Button>Download</Button>
+            <Button clear>share</Button>
+          </div>
       </div>
   </Sheet>
 
 </List>
+
+<style>
+  img {
+    max-width: 170px;
+  }
+  .footer {
+    gap: 1rem;
+    padding: 0 1rem;
+    margin-top: 1rem;
+  }
+</style>

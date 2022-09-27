@@ -7,16 +7,11 @@
   <Page>
     <Navbar medium title="eInvoice qrCode" />
     <slot />
-  <div class="relative">
+  <div class="relative max-w-md mx-auto">
     <Block>
       <p>Enter the following information</p>
     </Block>
     <Fatoora />
-    <!-- <Block class="space-y-4">
-      <p>Here comes the button</p>
-      <Button>Action</Button>
-      <Button>Action</Button>
-    </Block> -->
   </div>
   </Page>
 </App>
