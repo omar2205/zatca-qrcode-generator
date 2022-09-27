@@ -46,7 +46,7 @@ class Invoice {
     const qr = new QRious({
       value: this.base64(),
       padding: 25,
-      size: 512
+      size: 512,
     })
     return qr.toDataURL()
   }
